@@ -1,0 +1,27 @@
+title: Deletion Of An User Account
+id: 0a36d6d8-cf9b-4b22-8130-f7c8afe11fce
+status: test
+description: Detects the deletion of a user account. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+references:
+    - https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-understanding_audit_log_files
+    - https://access.redhat.com/articles/4409591#audit-record-types-2
+    - https://www.youtube.com/watch?v=VmvY5SQm5-Y&ab_channel=M45C07
+author: Adam Liquorish
+date: 2024/06/18
+modified: 2024/06/18
+tags:
+    - attack.t1136.001
+    - attack.persistence
+logsource:
+    product: linux
+    service: auditd
+detection:
+    selection_syscall_record_type:
+        type: 'SYSCALL'
+        exe|endswith: '/userdel'
+    selection_add_user_record_type:
+        type: 'DEL_USER' # This is logged without having to configure audit rules on both Ubuntu and Centos
+    condition: 1 of selection_*
+falsepositives:
+    - Admin activity
+level: medium
