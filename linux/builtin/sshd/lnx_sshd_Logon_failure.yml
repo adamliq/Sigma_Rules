@@ -1,7 +1,7 @@
-title: SSH logon success
+title: SSH logon failure
 id: ec854497-6c26-4c1a-aa79-7b81716b4e9a
 status: test
-description: Detects successful ssh logon. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+description: Detects failed ssh logon. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
 references:
     - https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-understanding_audit_log_files
     - https://access.redhat.com/articles/4409591#audit-record-types-2

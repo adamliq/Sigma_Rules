@@ -1,7 +1,7 @@
-title: SSH logoff
-id: ec854497-6c26-4c1a-aa79-7b81716b4e9a
+title: Sudo success
+id: 99c929cb-2b6a-42a2-ba10-c958418f465f
 status: test
-description: Detects ssh logoff. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+description: Detects sudo success. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
 references:
     - https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-understanding_audit_log_files
     - https://access.redhat.com/articles/4409591#audit-record-types-2
@@ -17,8 +17,8 @@ logsource:
     service: auditd
 detection:
     selection_add_user_record_type:
-        type: 'USER_LOGOUT' # This is logged without having to configure audit rules on both Ubuntu and Centos
-        exe|endswith: 'sshd'
+        type: 'USER_CMD' # This is logged without having to configure audit rules on both Ubuntu and Centos
+        exe|endswith: 'sudo'
         res: 'success'
     condition: 1 of selection_*
 falsepositives:
