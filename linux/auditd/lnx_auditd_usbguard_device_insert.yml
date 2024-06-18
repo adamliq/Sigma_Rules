@@ -1,0 +1,27 @@
+title: USBGuard device inserted
+id: d43c09f3-580e-426c-b8f8-e620257909c5
+status: test
+description: Detects device insert. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+references:
+    - https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-understanding_audit_log_files
+    - https://access.redhat.com/articles/4409591#audit-record-types-2
+    - https://www.youtube.com/watch?v=VmvY5SQm5-Y&ab_channel=M45C07
+author: Adam Liquorish
+date: 2024/06/18
+modified: 2024/06/18
+tags:
+    - attack.t1136.001
+    - attack.persistence
+logsource:
+    product: linux
+    service: auditd
+detection:
+    selection_add_user_record_type:
+        type: 'USER_DEVICE' # This is logged without having to configure audit rules on both Ubuntu and Centos
+        exe|endswith: 'usbguard-daemon'
+        op: 'inserted-device'
+        res: 'success'
+    condition: 1 of selection_*
+falsepositives:
+    - Admin activity
+level: medium
